@@ -9,6 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+          'expired': '#ff3333',
+          'payed':'#00b400',
+          'pending':'#ff7b00',
+          'draft':'#cccccc',
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
