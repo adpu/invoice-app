@@ -5,17 +5,14 @@ import { Poppins } from 'next/font/google'
 import Link from "next/link";
 import Image from "next/image";
 
+
 const poppins = Poppins({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
 })
 
-const poppins_semibold = Poppins({
-  weight: '500',
-  subsets: ['latin'],
-  display: 'swap',
-})
+
 
 export const metadata: Metadata = {
   title: "Invoice Gnerator App",
@@ -44,7 +41,7 @@ export default async function RootLayout({
 
             {companyData ? (
                 <div className="flex justify-start items-start gap-4">
-                   <img src={`/${companyData.logo}`} width="32" height="32" alt="Logo" />
+                   <Image src={`/${companyData.logo}`} width="32" height="32" alt="Logo" />
                    <p className="text-black text-sm"><strong>{companyData.company}</strong><br />{companyData.name} {companyData.lastname}<br />{companyData.address}, {companyData.city}<br />{companyData.dni}</p>
                  </div>
               ) : (

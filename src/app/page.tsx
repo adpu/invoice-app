@@ -5,12 +5,14 @@ import InvoicesList from './ui/InvoicesList';
 import { fetchInvoicesDataByStatus } from './lib/data';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { Invoice } from './lib/definitions';
 
 export default function Home() {
   
   const searchParams = useSearchParams();
   const status = searchParams.get('status') || 'all';
-  const [invoices, setInvoices] = useState<any[]>([]);
+
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
 
 
   

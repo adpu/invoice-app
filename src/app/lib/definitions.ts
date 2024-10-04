@@ -17,15 +17,15 @@
 
   export type Invoice ={
     id: number;
-    amount: number,
+    created_at: string;
+    amount: number;
     iva: number;
-    irpf: number,
-    invoiceid: string,
-    name: string,
-    lastname: string,
-    address: string,
-    city: string,
-    dni: string,
-    status: string,
-    created_at: string
+    irpf: number;
+    invoiceid: string;
+    name: string;
+    lastname: string;
+    address: string;
+    city: string;
+    dni: string;
+    status: string;  
   };

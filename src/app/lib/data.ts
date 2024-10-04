@@ -1,6 +1,7 @@
 'use server'
 
 import { sql } from '@vercel/postgres';
+import { Invoice } from './definitions';
  
 export async function fetchCompanyData(id?: number) {
  
@@ -21,8 +22,8 @@ export async function fetchCompanyData(id?: number) {
   }
 }
 
-export async function fetchInvoicesDataByStatus(currentStatus?: string) {
-  let rows: any[]; 
+export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise<Invoice[] | null> {
+  let rows: Invoice[]; 
   
   try {
     if(currentStatus==='all'){
@@ -32,8 +33,21 @@ export async function fetchInvoicesDataByStatus(currentStatus?: string) {
       ? sql`SELECT * FROM invoices WHERE status = ${currentStatus};`
       : sql`SELECT * FROM invoices;`; // Fetch all if no status is provided
     
-    const result = await query;
-    rows = result.rows;
+    const result2 = await query;
+    rows = result2.rows.map((row) => ({
+      id: row.id,
+      created_at:row.created_at,
+      amount: row.amount,
+      iva: row.iva,
+      irpf: row.irpf,
+      invoiceid: row.invoiceid,
+      name: row.name,
+      lastname: row.lastname,
+      address: row.address,
+      city: row.city,
+      dni: row.dni,
+      status: row.status,   
+    }));
     return rows; 
   } catch (error) {
     console.error('Error fetching company data:', error);
