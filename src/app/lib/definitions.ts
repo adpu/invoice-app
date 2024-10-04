@@ -14,3 +14,18 @@
     city: string;
     dni: string;
   };
+
+  export type Invoice ={
+    id: number;
+    amount: number,
+    iva: number;
+    irpf: number,
+    invoiceid: string,
+    name: string,
+    lastname: string,
+    address: string,
+    city: string,
+    dni: string,
+    status: string,
+    created_at: string
+  };

@@ -1,31 +1,40 @@
+'use server'
+
 import { sql } from '@vercel/postgres';
  
-
-
-
 export async function fetchCompanyData(id?: number) {
  
-  let rows: any[]; // Initialize rows variable
-  if(id==null){
-    let id=1;
-  }
-  try {
-    const result = await sql`SELECT * FROM invoicesetting WHERE id == ${id};`;
-    rows = result.rows; // Assign rows from the result
-    console.log(rows);
-    return rows; // Return the rows fetched from the database
+  if (id === 0 || id === undefined) {
+    id = 1;
+   }
+ 
+  try {  
+    const result = await sql`SELECT * FROM invoicesetting WHERE id = ${id} ;`;
+    const company = result.rows.map((company) => ({
+      ...company,
+    }));
+   console.log(company[0])
+    return company[0];
   } catch (error) {
     console.error('Error fetching company data:', error);
-    return null; // Return null in case of an error
+    return null; 
   }
 }
 
 export async function fetchInvoicesDataByStatus(currentStatus?: string) {
   let rows: any[]; 
+  
   try {
-    const result = await sql`SELECT * FROM invoicesetting WHERE status == ${currentStatus};`;
-    rows = result.rows; // Assign rows from the result
-    return rows; // Return the rows fetched from the database
+    if(currentStatus==='all'){
+      currentStatus='';
+    }
+    const query = currentStatus 
+      ? sql`SELECT * FROM invoices WHERE status = ${currentStatus};`
+      : sql`SELECT * FROM invoices;`; // Fetch all if no status is provided
+    
+    const result = await query;
+    rows = result.rows;
+    return rows; 
   } catch (error) {
     console.error('Error fetching company data:', error);
     return null; // Return null in case of an error
