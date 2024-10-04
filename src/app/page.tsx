@@ -4,7 +4,7 @@ import Link from 'next/link';
 import InvoicesList from './ui/InvoicesList';
 import { fetchInvoicesDataByStatus } from './lib/data';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import { Invoice } from './lib/definitions';
 
 export default function Home() {
@@ -38,8 +38,11 @@ export default function Home() {
         
       </div>
       <div className="relative w-full block">
-      <InvoicesList invoices={invoices || []} />
+        <InvoicesList invoices={invoices || []} />
+       
+      
       </div>
     </>
   );
 }
+

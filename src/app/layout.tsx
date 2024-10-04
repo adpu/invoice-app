@@ -4,6 +4,7 @@ import "./globals.css";
 import { Poppins } from 'next/font/google'
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
 
 
 const poppins = Poppins({
@@ -57,7 +58,10 @@ export default async function RootLayout({
 
 
           </header>
+          <Suspense>
           {children}
+          </Suspense>
+          
           <div className="relative block w-full text-center mt-4">
             <p className="font-normal text-sm text-black block">Invoice Generator V.1.0 - {year}</p>
           </div>
