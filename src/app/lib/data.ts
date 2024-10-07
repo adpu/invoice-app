@@ -15,8 +15,17 @@ export async function fetchCompanyData(id?: number) {
     const company = result.rows.map((company) => ({
       ...company,
     }));
-    
-    return company[0];
+    return {
+      id: company[0].id, // Ensure these fields match the `CompanySetForm`
+      logo: company[0].logo,
+      company: company[0].company,
+      name: company[0].name,
+      lastname: company[0].lastname,
+      address: company[0].address,
+      city: company[0].city,
+      dni: company[0].dni,
+    };
+  
   } catch (error) {
     console.error('Error fetching company data:', error);
     return null;

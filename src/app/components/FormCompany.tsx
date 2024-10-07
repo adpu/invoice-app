@@ -47,6 +47,9 @@ export default function FormCompany({companySet}: FormCompanyProps) {
     });
     const {msg} = await res.json();
     setError(msg);
+
+    console.log(msg)
+   
   };
 
   return (
@@ -159,7 +162,7 @@ export default function FormCompany({companySet}: FormCompanyProps) {
       
 {/* Display Validation Errors */}
 {error.length > 0 && (
-          <div className="bg-red-100 text-red-600 p-4 mb-4">
+          <div className="bg-red-100 text-red-600 p-4 my-4">
             <ul>
               {error.map((errorItem, index) => (
                 <li key={index}>{errorItem}</li>

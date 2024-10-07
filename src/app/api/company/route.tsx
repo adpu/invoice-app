@@ -37,8 +37,10 @@ export async function POST(req: Request) {
 
 
         // Update database
-        return NextResponse.json({ msg: ["company updated"], success: true });
+
+        return NextResponse.json({ msg: ["Registre actualitzat"], success: true });
     } catch (error) {
+        console.error("Error on Updating register: ", error);
     }
 
 }
