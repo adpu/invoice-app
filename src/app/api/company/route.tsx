@@ -7,7 +7,7 @@ import { updateCompanyData } from "@/app/lib/data";
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
     lastname: z.string().min(1, "Last name is required"),
-    logo: z.string().optional(), // Assuming logo is optional
+    logoName: z.string().min(1, "Logo is required"), 
     company: z.string().min(1, "Company name is required"),
     address: z.string().min(1, "Address is required"),
     city: z.string().min(1, "City is required"),
@@ -16,8 +16,8 @@ const formSchema = z.object({
 
 export async function POST(req: Request) {
 
-    const { name, lastname, logo, company, address, city, dni } = await req.json();
-
+    const { name, lastname, logoName, company, address, city, dni } = await req.json();
+   
     /*console.log(logo);
     console.log(company);
     console.log(name);
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     console.log(city);
     console.log(dni);*/
     try {
-        const validatedData = formSchema.safeParse({name, lastname, logo, company, address, city, dni});
+        const validatedData = formSchema.safeParse({name, lastname, logoName, company, address, city, dni});
 
         if (!validatedData.success) {
             const errorMessages = validatedData.error.errors.map((err) => err.message);
@@ -39,6 +39,7 @@ export async function POST(req: Request) {
 
         // Update database
         const id=1;
+        const logo =logoName;
         await updateCompanyData({id, name, lastname, logo, company, address, city, dni});
 
         return NextResponse.json({ msg: ["Registre actualitzat"], success: true });
