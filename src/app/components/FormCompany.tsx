@@ -18,6 +18,7 @@ export default function FormCompany({companySet}: FormCompanyProps) {
   const [city, setCity] = useState(companySet.city);
   const [dni, setDni] = useState(companySet.dni);
   const [error, setError] = useState([]);
+  const [message, setMessage] = useState([]);
 
   const handleSubmit=async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,10 +46,16 @@ export default function FormCompany({companySet}: FormCompanyProps) {
         dni,
       })
     });
-    const {msg} = await res.json();
-    setError(msg);
+    const { msg, success } = await res.json();
 
-    console.log(msg)
+    // Check if the success property is true or false
+    if (success) {
+      setMessage(msg); // Assuming msg is an array of success messages
+      setError([]); // Clear any existing errors
+    } else {
+      setError(msg); // Assuming msg is an array of error messages
+      setMessage([]); // Clear any existing success messages
+    }
    
   };
 
@@ -166,6 +173,15 @@ export default function FormCompany({companySet}: FormCompanyProps) {
             <ul>
               {error.map((errorItem, index) => (
                 <li key={index}>{errorItem}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+{message.length > 0 && (
+          <div className="bg-green-400 text-black p-4 my-4">
+            <ul>
+              {message.map((messageItem, index) => (
+                <li key={index}>{messageItem}</li>
               ))}
             </ul>
           </div>
