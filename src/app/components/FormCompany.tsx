@@ -103,6 +103,7 @@ export default function FormCompany({ companySet }: FormCompanyProps) {
               type="file"
               id="logo"
               name="logo"
+              value={""}
               aria-describedby="logo-error"
               onChange={(e) => {
                 const file = e.target.files?.[0];
