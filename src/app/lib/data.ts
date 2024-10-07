@@ -74,8 +74,6 @@ export async function updateCompanyData(iset: CompanySetForm) {
       dni = ${iset.dni}
       WHERE id = ${iset.id}'
     `;
-    // Suponiendo que has actualizado datos en la base de datos
-  // Revalida la ruta específica
   revalidatePath('/');
   } catch (error) {
     console.error('An error occurred:', error);
@@ -83,7 +81,17 @@ export async function updateCompanyData(iset: CompanySetForm) {
   }
 }
 
-
+export async function fetchSingleInvoice(id:string){
+ 
+  try{
+    const result= await sql`SELECT * FROM invoices WHERE id = ${id};`;
+   
+   return result.rows[0];
+  }catch(error){
+    console.error('An error occurred:', error);
+    return { message: 'Database Error: Failed to Load register .' };
+  }
+}
 
 
 

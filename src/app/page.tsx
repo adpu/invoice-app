@@ -1,7 +1,7 @@
 
 'use client'
 import Link from 'next/link';
-import InvoicesList from './ui/InvoicesList';
+import InvoicesList from './components/InvoicesList';
 import { fetchInvoicesDataByStatus } from './lib/data';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect} from 'react';

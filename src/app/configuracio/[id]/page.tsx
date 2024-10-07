@@ -2,7 +2,7 @@
 import { fetchCompanyData } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import FormCompany from '@/app/ui/FormCompany';
+import FormCompany from '@/app/components/FormCompany';
 
 
 
