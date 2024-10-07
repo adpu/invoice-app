@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { updateCompanyData } from "@/app/lib/data";
 
 
 // Define the schema using Zod
@@ -37,6 +38,8 @@ export async function POST(req: Request) {
 
 
         // Update database
+        const id=1;
+        await updateCompanyData({id, name, lastname, logo, company, address, city, dni});
 
         return NextResponse.json({ msg: ["Registre actualitzat"], success: true });
     } catch (error) {

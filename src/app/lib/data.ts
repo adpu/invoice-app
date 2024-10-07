@@ -1,6 +1,5 @@
 'use server'
-
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from 'next/cache'
 import { sql } from '@vercel/postgres';
 import { Invoice, CompanySetForm } from './definitions';
 
@@ -63,7 +62,7 @@ export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise
     console.error('Error fetching company data:', error);
     return null; // Return null in case of an error
   }
-
+  
 
 
 }
@@ -74,16 +73,21 @@ export async function updateCompanyData(iset: CompanySetForm) {
   try {
     await sql`
       UPDATE invoicesetting
-      SET company = '${iset.company}, 
-      logo = 'image.svg', 
+      SET company = ${iset.company}, 
+      logo = ${iset.logo}, 
       name = ${iset.name},
       lastname = ${iset.lastname},
       address = ${iset.address},
       city = ${iset.city},
       dni = ${iset.dni}
-      WHERE id = ${iset.id}'
-    `;
-  revalidatePath('/');
+      WHERE id = ${iset.id}`;
+  
+      // Serveix x refrescar la pàgina i mostrar el registre actualitzat
+      revalidatePath('/configuracio/1')
+    
+    
+
+
   } catch (error) {
     console.error('An error occurred:', error);
     return { message: 'Database Error: Failed to Update .' };
