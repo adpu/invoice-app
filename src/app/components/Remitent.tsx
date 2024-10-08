@@ -3,6 +3,10 @@ import Image from "next/image";
 
 export default async function Remitent() {
     const companyData = await fetchCompanyData();  
+    if (!companyData) {
+        // Handle the case where companyData is null
+        return <div>No company data available</div>;
+    }
     return(
         <div className="flex justify-start flex-col items-start gap-4">
            <p className=" text-sm text-black">De:</p>

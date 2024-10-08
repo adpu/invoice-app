@@ -4,18 +4,22 @@ import Link from 'next/link';
 import InvoicesList from './components/InvoicesList';
 import { fetchInvoicesDataByStatus } from './lib/data';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { Invoice } from './lib/definitions';
+import StatusMenuList from './components/StatusMenuList';
 
 export default function Home() {
-  
+
   const searchParams = useSearchParams();
   const status = searchParams.get('status') || 'all';
 
   const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [filterMobile, setFilterMobile] = useState<boolean>(false);
 
+  const handleClick = () => {
+    setFilterMobile(!filterMobile);
+  };
 
-  
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchInvoicesDataByStatus(status);
@@ -26,21 +30,24 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full relative flex justify-start items-center py-8">
-        <h1 className="font-medium block w-full text-4xl text-black">Factures</h1>
-        <ul className="list-none flex justify-end items-center gap-4">
-          <li><Link href="/?status=all" className={`${status === 'all' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Totes</Link></li>
-          <li><Link href="/?status=draft" className={`${status === 'draft' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Borrador</Link></li>
-          <li><Link href="/?status=pendant" className={`${status === 'pendant' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Pendents</Link></li>
-          <li><Link href="/?status=expired" className={`${status === 'expired' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Expirades</Link></li>
-          <li><Link href="/?status=payed" className={`${status === 'payed' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Pagades</Link></li>
-        </ul>
-        
+      <div className="w-full relative block sm:flex justify-start items-center py-8">
+        <h1 className="font-medium block w-full text-2xl sm:text-4xl text-black">Factures</h1>
+        <button onClick={handleClick} className="sm:hidden mt-2 group bg-white hover:bg-gray-200 flex gap-2 border rounded-sm py-2 px-4 text-black text-base w-full">Filtrar per status</button>
+        {filterMobile && (
+          <div className='relative w-full block'>
+            <div className='absolute w-full bg-red-500 z-50 top-0 pt-4 left-0'>
+              <StatusMenuList status={status} />
+            </div>
+          </div>
+        )}
+        <div className='sm:block hidden'>
+        <StatusMenuList status={status} />
+        </div>
       </div>
       <div className="relative w-full block">
         <InvoicesList invoices={invoices || []} />
-       
-      
+
+
       </div>
     </>
   );
