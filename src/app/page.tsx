@@ -1,6 +1,6 @@
 
 'use client'
-import Link from 'next/link';
+
 import InvoicesList from './components/InvoicesList';
 import { fetchInvoicesDataByStatus } from './lib/data';
 import { useSearchParams } from 'next/navigation';
