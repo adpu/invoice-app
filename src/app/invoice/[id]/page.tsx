@@ -1,6 +1,7 @@
 import { fetchSingleInvoice } from "@/app/lib/data";
 import Remitent from "@/app/components/Remitent";
 import InvoiceActions from "@/app/components/InvoiceActions";
+import Link from "next/link";
 
 type InvoiceProps = {
   params: {
@@ -81,6 +82,7 @@ export default async function InvoiceDetail({ params }: InvoiceProps) {
         </div>
 
       </div>
+      <Link href="/" className='bg-gray-200 w-full text-center mx-auto max-w-80 text-black py-2 px-4 mt-4'>Tornar</Link>
       </div>
     ):(
       <p className=" text-sm text-left text-black mb-4">No data</p>
