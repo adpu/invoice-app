@@ -94,7 +94,7 @@ export async function updateCompanyData(iset: CompanySetForm) {
   }
 }
 
-export async function fetchSingleInvoice(id:string){
+export async function fetchSingleInvoice(id:number){
  
   try{
     const result= await sql`SELECT * FROM invoices WHERE id = ${id};`;

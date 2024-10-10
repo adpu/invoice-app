@@ -27,5 +27,7 @@
     address: string;
     city: string;
     dni: string;
-    status: string;  
+    status: string; 
+    description: string;
+    payment:string;
   };
