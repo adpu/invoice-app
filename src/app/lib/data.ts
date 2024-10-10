@@ -55,6 +55,8 @@ export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise
       address: row.address,
       city: row.city,
       dni: row.dni,
+      description:row.description,
+      payment:row.payment,
       status: row.status,
     }));
     return rows;
@@ -97,12 +99,32 @@ export async function updateCompanyData(iset: CompanySetForm) {
 export async function fetchSingleInvoice(id:number){
  
   try{
-    const result= await sql`SELECT * FROM invoices WHERE id = ${id};`;
+    const result= await sql`SELECT id, created_at, amount, iva, irpf, invoiceid, name, lastname, address, city, dni, status, description, payment FROM invoices WHERE id = ${id};`;
+    if (result.rows.length === 0) {
+      return null; // No invoice found
+    }
+    const invoice: Invoice = {
+      id: result.rows[0].id,
+      created_at: result.rows[0].created_at,
+      amount: result.rows[0].amount,
+      iva: result.rows[0].iva,
+      irpf: result.rows[0].irpf,
+      invoiceid: result.rows[0].invoiceid,
+      name: result.rows[0].name,
+      lastname: result.rows[0].lastname,
+      address: result.rows[0].address,
+      city: result.rows[0].city,
+      dni: result.rows[0].dni,
+      status: result.rows[0].status,
+      description: result.rows[0].description,
+      payment: result.rows[0].payment
+    };
+  
+    return invoice;
    
-   return result.rows[0];
   }catch(error){
     console.error('An error occurred:', error);
-    return { message: 'Database Error: Failed to Load register .' };
+    return null;
   }
 }
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 interface InvoiceActionsProps {
-  id: string; 
+  id: number; 
 }
 export default async function InvoiceActions({ id }: InvoiceActionsProps) {
     

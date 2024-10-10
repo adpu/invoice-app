@@ -4,17 +4,19 @@ import InvoiceActions from "@/app/components/InvoiceActions";
 
 type InvoiceProps = {
   params: {
-    id: string;
+    id: number;
   };
 };
 
 export default async function InvoiceDetail({ params }: InvoiceProps) {
   const { id } = params;
   const invoice = await fetchSingleInvoice(id);
-  const date = new Date(invoice.created_at);
+ 
+  
   console.log(invoice);
   return (
     <>
+    {invoice ? (
       <div className="w-full relative max-w-5xl mx-auto gap-4 flex flex-col items-start justify-start my-12 sm:my-24">
         <InvoiceActions id={id} />
       <div className="border border-gray-200 p-4 w-full relative mb-4">
@@ -27,6 +29,7 @@ export default async function InvoiceDetail({ params }: InvoiceProps) {
           </div>
 
         </div>
+
         <div className="relative border border-gray-200 mb-4 w-full block sm:flex justify-between items-start">
           <div className="flex justify-start border-b sm:border-b-0  border-gray-200 items-start p-8 w-full sm:w-1/2">
             <div className="flex justify-start  flex-col items-start gap-4">
@@ -37,7 +40,7 @@ export default async function InvoiceDetail({ params }: InvoiceProps) {
           </div>
           <div className="flex border-l-0 sm:border-l flex-col gap-4 justify-start items-start sm:items-end  p-8 w-full sm:w-1/2">
             <p className=" text-sm text-left sm:text-right text-black">Data:<br />
-              <span className="text-black text-sm">{date.toLocaleDateString('ca', {
+              <span className="text-black text-sm">{new Date(invoice.created_at).toLocaleDateString('ca', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -79,6 +82,9 @@ export default async function InvoiceDetail({ params }: InvoiceProps) {
 
       </div>
       </div>
+    ):(
+      <p className=" text-sm text-left text-black mb-4">No data</p>
+    )}
     </>
   );
 }
