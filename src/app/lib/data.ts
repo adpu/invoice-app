@@ -87,8 +87,49 @@ export async function updateCompanyData(iset: CompanySetForm) {
     // Serveix x refrescar la pàgina i mostrar el registre actualitzat
     revalidatePath('/configuracio/1')
 
+  } catch (error) {
+    console.error('An error occurred:', error);
+    return { message: 'Database Error: Failed to Update .' };
+  }
+}
 
 
+export async function updateInvoiceData(iset: Invoice) {
+  const currentInvoice = await sql`
+      SELECT amount
+      FROM invoices
+      WHERE id = ${iset.id};
+    `;
+  let amountdef = 0;
+
+  // Step 2: Compare fields and update only if they have changed
+  if (currentInvoice.rows[0].amount != iset.amount) {
+    amountdef = iset.amount * 100;
+  } else {
+    amountdef = iset.amount
+  }
+
+  try {
+    await sql`
+      UPDATE invoices
+      SET 
+      name = ${iset.name},
+      lastname = ${iset.lastname},
+      address = ${iset.address},
+      city = ${iset.city},
+      dni = ${iset.dni},
+      amount = ${amountdef},
+      irpf = ${iset.irpf},
+      iva = ${iset.iva},
+      invoiceid = ${iset.invoiceid},
+      description = ${iset.description},
+      payment = ${iset.payment},
+      created_at = ${iset.created_at},
+      status = ${iset.status}
+      WHERE id = ${iset.id}`;
+
+    // Serveix x refrescar la pàgina i mostrar el registre actualitzat
+    revalidatePath(`/invoice/${iset.id}/edit`)
 
   } catch (error) {
     console.error('An error occurred:', error);

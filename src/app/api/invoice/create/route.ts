@@ -36,7 +36,7 @@ export async function POST(req: Request) {
             }, { status: 400 });
         }
 
-        // Update database
+        // Insert register to Database
         await createInvoice({
             name,
             lastname,

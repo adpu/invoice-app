@@ -21,7 +21,6 @@ export default function FormCompany({ companySet }: FormCompanyProps) {
   const [error, setError] = useState([]);
   const [message, setMessage] = useState([]);
 
-  // Reset input file
   
 
   const handleSubmit = async (e: React.FormEvent) => {

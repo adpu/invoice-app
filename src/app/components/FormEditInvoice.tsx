@@ -1,71 +1,44 @@
 'use client';
 import { useState } from "react";
 import Link from 'next/link';
+import { Invoice } from "../lib/definitions";
+
+interface FormEditInvoiceProps {
+  invoice: Invoice;
+}
 
 
+export default function FormEditInvoice({ invoice }: FormEditInvoiceProps) {
 
-
-export default function FormInvoice() {
-
-  const [name, setName] = useState('');
-  const [lastname, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [dni, setDni] = useState('');
-  const [amount, setAmount] = useState('0');
-  const [iva, setIva] = useState('0');
-  const [irpf, setIrpf] = useState('0');
-  const [invoiceid, setInvoiceid] = useState('');
-  const status = 'draft';
-  const [description, setDescription] = useState('');
-  const [payment, setPayment] = useState('');
-  const [created_at, setCreatedAt] = useState('');
-
+  const [name, setName] = useState(invoice.name || '');
+  const [lastname, setLastName] = useState(invoice.lastname || '');
+  const [address, setAddress] = useState(invoice.address || '');
+  const [city, setCity] = useState(invoice.city || '');
+  const [dni, setDni] = useState(invoice.dni || '');
+  const [amount, setAmount] = useState(invoice.amount || '0');
+  const [iva, setIva] = useState(invoice.iva || '0');
+  const [irpf, setIrpf] = useState(invoice.irpf || '0');
+  const [invoiceid, setInvoiceid] = useState(invoice.invoiceid || '');
+  const [status, setStatus] = useState(invoice.status || 'draft');
+  const [description, setDescription] = useState(invoice.description || '');
+  const [payment, setPayment] = useState(invoice.payment || '');
+  const [created_at, setCreatedAt] = useState(invoice.created_at || '');
+  const id=invoice.id;
   const [error, setError] = useState([]);
   const [message, setMessage] = useState([]);
 
-  // Reset input file
-  const resetForm = () => {
-    setName('');
-    setLastName('');
-    setAddress('');
-    setCity('');
-    setInvoiceid('');
-    setDni('');
-    setAmount('0');
-    setIva('0');
-    setIrpf('0');
-    setDescription('');
-    setPayment('');
-    setCreatedAt('');
 
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(name);
-    console.log(lastname);
-    console.log(address);
-    console.log(city);
-    console.log(dni);
-    console.log(invoiceid);
-    console.log(created_at);
-    console.log(description);
-    console.log(payment);
-    console.log(amount);
-    console.log(iva);
-    console.log(irpf);
-    console.log(status);
-
-    
-
-    const res = await fetch("http://localhost:3000/api/invoice/create", {
+    const res = await fetch("http://localhost:3000/api/invoice/edit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        id,
         name,
         lastname,
         address,
@@ -84,14 +57,13 @@ export default function FormInvoice() {
 
     const { msg, success } = await res.json();
 
-    // Check if the success property is true or false
+
     if (success) {
       setMessage(msg);
-      resetForm(); // Assuming msg is an array of success messages
-      setError([]); // Clear any existing errors
+      setError([]);
     } else {
-      setError(msg); // Assuming msg is an array of error messages
-      setMessage([]); // Clear any existing success messages
+      setError(msg);
+      setMessage([]);
     }
 
   };
@@ -109,7 +81,7 @@ export default function FormInvoice() {
               type="text"
               id="name"
               name="name"
-              value={name} 
+              defaultValue={invoice.name}
               onChange={(e) => setName(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -123,7 +95,7 @@ export default function FormInvoice() {
               type="text"
               id="lastname"
               name="lastname"
-              value={lastname} 
+              defaultValue={invoice.lastname}
               onChange={(e) => setLastName(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -138,7 +110,7 @@ export default function FormInvoice() {
               type="text"
               id="address"
               name="address"
-              value={address}
+              defaultValue={invoice.address}
               onChange={(e) => setAddress(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -153,7 +125,7 @@ export default function FormInvoice() {
               type="text"
               id="city"
               name="city"
-              value={city}
+              defaultValue={invoice.city}
               onChange={(e) => setCity(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -168,7 +140,7 @@ export default function FormInvoice() {
               type="text"
               id="dni"
               name="dni"
-              value={dni}
+              defaultValue={invoice.dni}
               onChange={(e) => setDni(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -185,7 +157,7 @@ export default function FormInvoice() {
               type="text"
               id="invoiceid"
               name="invoiceid"
-              value={invoiceid}
+              defaultValue={invoice.invoiceid}
               onChange={(e) => setInvoiceid(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -199,7 +171,7 @@ export default function FormInvoice() {
               type="date"
               id="created_at"
               name="created_at"
-              value={created_at}
+              defaultValue={invoice.created_at}
               onChange={(e) => setCreatedAt(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -209,25 +181,25 @@ export default function FormInvoice() {
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
           <label htmlFor="description" className="block mb-1">Concepte:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
-            <textarea id="description" value={description} name="description" onChange={(e) => setDescription(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
+            <textarea id="description" defaultValue={invoice.description} name="description" onChange={(e) => setDescription(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
           </div>
         </div>
 
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
           <label htmlFor="payment" className="block mb-1">Formes de pagament:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
-            <textarea id="payment" value={payment} name="payment" onChange={(e) => setPayment(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
+            <textarea id="payment" defaultValue={invoice.payment} name="payment" onChange={(e) => setPayment(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
           </div>
         </div>
 
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
-          <label htmlFor="amount"  className="block mb-1">Base:</label>
+          <label htmlFor="amount" className="block mb-1">Base:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
             <input
               type="number"
               id="amount"
               name="amount"
-              value={amount}
+              defaultValue={invoice.amount/100}
               onChange={(e) => setAmount(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -240,7 +212,7 @@ export default function FormInvoice() {
             <input
               type="number"
               id="iva"
-              value={iva}
+              defaultValue={invoice.iva}
               name="iva"
               onChange={(e) => setIva(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -255,17 +227,36 @@ export default function FormInvoice() {
               type="number"
               id="irpf"
               name="irpf"
-              value={irpf}
+              defaultValue={invoice.irpf}
               onChange={(e) => setIrpf(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
           </div>
         </div>
 
+        <div className="relative w-full flex flex-col justify-start mb-2 items-start">
+          <label htmlFor="status" className="block mb-1">Estat:</label>
+          <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
+            <select
+              name="status"
+              id="status"
+              defaultValue={invoice.status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
+            >
+              <option value="draft">Borrador</option>
+              <option value="pendant">Pendent</option>
+              <option value="payed">Pagada</option>
+              <option value="expired">Expirada</option>
+            </select>
+
+          </div>
+        </div>
+
 
         <div className='flex justify-between items-center w-full relative gap-4'>
           <Link href="/" className='bg-gray-200 w-full text-center text-black py-2 px-4 mt-4'>Tornar</Link>
-          <button type="submit" className="bg-blue-500 w-full text-center  text-white py-2 px-4 mt-4">Guardar</button>
+          <button type="submit" className="bg-blue-500 w-full text-center  text-white py-2 px-4 mt-4">Actualizar</button>
         </div>
 
         {/* Display Validation Errors */}

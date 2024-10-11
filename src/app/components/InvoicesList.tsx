@@ -6,7 +6,7 @@ export default function InvoicesList({ invoices }: { invoices: Invoice[] }) {
   return (
     <div>
       {invoices ? (
-        <table className="border-collapse table-auto w-full text-sm">
+        <table className="border-collapse table-fixed w-full text-sm">
           <thead className=" bg-gray-50">
             <tr>
               <th className="border font-medium p-4 pl-8 pt-3 pb-3 text-black text-left">Accions</th>
