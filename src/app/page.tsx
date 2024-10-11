@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import { Invoice } from './lib/definitions';
 import StatusMenuList from './components/StatusMenuList';
 
-
 export default function Home() {
 
   const searchParams = useSearchParams();
@@ -47,8 +46,6 @@ export default function Home() {
       </div>
       <div className="relative w-full block">
         <InvoicesList invoices={invoices || []} />
-
-
       </div>
     </>
   );
