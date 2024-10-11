@@ -30,6 +30,8 @@ export default function FormInvoice() {
     setLastName('');
     setAddress('');
     setCity('');
+    setInvoiceid('');
+    setDni('');
     setAmount('0');
     setIva('0');
     setIrpf('0');
@@ -107,6 +109,7 @@ export default function FormInvoice() {
               type="text"
               id="name"
               name="name"
+              value={name} 
               onChange={(e) => setName(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -120,6 +123,7 @@ export default function FormInvoice() {
               type="text"
               id="lastname"
               name="lastname"
+              value={lastname} 
               onChange={(e) => setLastName(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -134,6 +138,7 @@ export default function FormInvoice() {
               type="text"
               id="address"
               name="address"
+              value={address}
               onChange={(e) => setAddress(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -148,6 +153,7 @@ export default function FormInvoice() {
               type="text"
               id="city"
               name="city"
+              value={city}
               onChange={(e) => setCity(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -162,6 +168,7 @@ export default function FormInvoice() {
               type="text"
               id="dni"
               name="dni"
+              value={dni}
               onChange={(e) => setDni(e.target.value)}
 
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -178,6 +185,7 @@ export default function FormInvoice() {
               type="text"
               id="invoiceid"
               name="invoiceid"
+              value={invoiceid}
               onChange={(e) => setInvoiceid(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -191,6 +199,7 @@ export default function FormInvoice() {
               type="date"
               id="created_at"
               name="created_at"
+              value={created_at}
               onChange={(e) => setCreatedAt(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -200,24 +209,25 @@ export default function FormInvoice() {
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
           <label htmlFor="description" className="block mb-1">Concepte:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
-            <textarea id="description" name="description" onChange={(e) => setDescription(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
+            <textarea id="description" value={description} name="description" onChange={(e) => setDescription(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
           </div>
         </div>
 
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
           <label htmlFor="payment" className="block mb-1">Formes de pagament:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
-            <textarea id="payment" name="payment" onChange={(e) => setPayment(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
+            <textarea id="payment" value={payment} name="payment" onChange={(e) => setPayment(e.target.value)} className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"></textarea>
           </div>
         </div>
 
         <div className="relative w-full flex flex-col justify-start mb-2 items-start">
-          <label htmlFor="amount" className="block mb-1">Base:</label>
+          <label htmlFor="amount"  className="block mb-1">Base:</label>
           <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2'>
             <input
               type="number"
               id="amount"
               name="amount"
+              value={amount}
               onChange={(e) => setAmount(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
@@ -230,6 +240,7 @@ export default function FormInvoice() {
             <input
               type="number"
               id="iva"
+              value={iva}
               name="iva"
               onChange={(e) => setIva(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
@@ -244,6 +255,7 @@ export default function FormInvoice() {
               type="number"
               id="irpf"
               name="irpf"
+              value={irpf}
               onChange={(e) => setIrpf(e.target.value)}
               className="border outline-0 placeholder:text-gray-400 border-gray-500 px-4 py-2 w-full relative block"
             />
