@@ -1,7 +1,7 @@
 'use server'
 import { revalidatePath } from 'next/cache'
 import { sql } from '@vercel/postgres';
-import { Invoice, CompanySetForm } from './definitions';
+import { Invoice, InvoiceInsert, CompanySetForm } from './definitions';
 
 export async function fetchCompanyData(id?: number) {
 
@@ -24,7 +24,7 @@ export async function fetchCompanyData(id?: number) {
       city: company[0].city,
       dni: company[0].dni,
     };
-  
+
   } catch (error) {
     console.error('Error fetching company data:', error);
     return null;
@@ -55,8 +55,8 @@ export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise
       address: row.address,
       city: row.city,
       dni: row.dni,
-      description:row.description,
-      payment:row.payment,
+      description: row.description,
+      payment: row.payment,
       status: row.status,
     }));
     return rows;
@@ -64,7 +64,7 @@ export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise
     console.error('Error fetching company data:', error);
     return null; // Return null in case of an error
   }
-  
+
 
 
 }
@@ -83,11 +83,11 @@ export async function updateCompanyData(iset: CompanySetForm) {
       city = ${iset.city},
       dni = ${iset.dni}
       WHERE id = ${iset.id}`;
-  
-      // Serveix x refrescar la pàgina i mostrar el registre actualitzat
-      revalidatePath('/configuracio/1')
-    
-    
+
+    // Serveix x refrescar la pàgina i mostrar el registre actualitzat
+    revalidatePath('/configuracio/1')
+
+
 
 
   } catch (error) {
@@ -96,10 +96,10 @@ export async function updateCompanyData(iset: CompanySetForm) {
   }
 }
 
-export async function fetchSingleInvoice(id:number){
- 
-  try{
-    const result= await sql`SELECT id, created_at, amount, iva, irpf, invoiceid, name, lastname, address, city, dni, status, description, payment FROM invoices WHERE id = ${id};`;
+export async function fetchSingleInvoice(id: number) {
+
+  try {
+    const result = await sql`SELECT id, created_at, amount, iva, irpf, invoiceid, name, lastname, address, city, dni, status, description, payment FROM invoices WHERE id = ${id};`;
     if (result.rows.length === 0) {
       return null; // No invoice found
     }
@@ -119,12 +119,48 @@ export async function fetchSingleInvoice(id:number){
       description: result.rows[0].description,
       payment: result.rows[0].payment
     };
-  
+
     return invoice;
-   
-  }catch(error){
+
+  } catch (error) {
     console.error('An error occurred:', error);
     return null;
+  }
+}
+
+
+
+export async function createInvoice(iset: InvoiceInsert) {
+
+  try {
+    await sql`
+  INSERT INTO invoices (name, lastname, address, city, dni, created_at, invoiceid, description, payment, amount, iva, irpf, status )
+  VALUES (
+    ${iset.name}, 
+    ${iset.lastname}, 
+    ${iset.address}, 
+    ${iset.city}, 
+    ${iset.dni}, 
+    ${iset.created_at},
+    ${iset.invoiceid},
+     ${iset.description}, 
+    ${iset.payment},
+    ${iset.amount}, 
+    ${iset.iva}, 
+    ${iset.irpf}, 
+    ${iset.status}
+  );
+`;
+
+    // Serveix x refrescar la pàgina i mostrar el registre actualitzat
+    revalidatePath('/invoice/create/')
+
+
+
+
+  } catch (error) {
+    console.error('An error occurred:', error);
+    return { message: 'Database Error: Failed to Update .' };
   }
 }
 

@@ -31,3 +31,19 @@
     description: string;
     payment:string;
   };
+
+  export type InvoiceInsert ={ 
+    name: string;
+    lastname: string;
+    address: string;
+    city: string;
+    dni: string;
+    invoiceid: string;
+    created_at: string;
+    description: string;
+    payment:string;
+    amount: number;
+    iva: number;
+    irpf: number;
+    status: string; 
+  };

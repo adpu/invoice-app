@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { Invoice } from './lib/definitions';
 import StatusMenuList from './components/StatusMenuList';
 
+
 export default function Home() {
 
   const searchParams = useSearchParams();
