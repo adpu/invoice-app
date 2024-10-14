@@ -2,7 +2,7 @@ import { Invoice } from "../lib/definitions";
 import Link from "next/link";
 import BadgeStatus from "./BadgeStatus";
 
-export default function InvoiceIteam({ invoice }: { invoice: Invoice }) {
+export default function InvoiceItem({ invoice }: { invoice: Invoice }) {
   const date = new Date(invoice.created_at);
 
   return (
@@ -21,7 +21,7 @@ export default function InvoiceIteam({ invoice }: { invoice: Invoice }) {
       </td>
       <td className="border text-right border-slate-200 p-4 pl-8 text-black ">{date.toLocaleDateString('ca', {
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
       })}</td>
     </tr>

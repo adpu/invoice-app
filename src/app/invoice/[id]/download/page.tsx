@@ -62,7 +62,7 @@ const InvoiceBody = ({ companySet, invoice }: InvoiceBodyProps) => (
               {'\n'}
               {new Date(invoice.created_at).toLocaleDateString('ca', {
                 year: 'numeric',
-                month: 'long',
+                month: 'short',
                 day: 'numeric',
               })}
               {'\n'}

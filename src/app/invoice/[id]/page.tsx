@@ -49,7 +49,7 @@ export default async function InvoiceDetail({ params }: InvoiceProps) {
             <p className=" text-sm text-left sm:text-right text-black">Data:<br />
               <span className="text-black text-sm">{new Date(invoice.created_at).toLocaleDateString('ca', {
                 year: 'numeric',
-                month: 'long',
+                month: 'short',
                 day: 'numeric',
               })}</span></p>
             <p className=" text-sm text-left sm:text-right text-black">Número Factura:<br />
