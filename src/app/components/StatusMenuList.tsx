@@ -1,9 +1,10 @@
+'use client';
 import Link from "next/link";
 interface StatusMenuListProps {
     status: string; // Ensure it's a string
   }
 
-export default async function StatusMenuList({ status }:StatusMenuListProps) {
+export default function StatusMenuList({ status }:StatusMenuListProps) {
 return(
     <ul className="list-none block sm:flex justify-end items-center gap-4">
           <li><Link href="/?status=all" className={`${status === 'all' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Totes</Link></li>
