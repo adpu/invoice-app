@@ -31,16 +31,69 @@ export async function fetchCompanyData(id?: number) {
   }
 }
 
-export async function fetchInvoicesDataByStatus(currentStatus?: string): Promise<Invoice[] | null> {
+export async function fetchInvoicesDataByStatus(currentStatus?: string, currentPeriod?: string): Promise<Invoice[] | null> {
   let rows: Invoice[];
+  let query;
 
   try {
-    if (currentStatus === 'all') {
-      currentStatus = '';
+    if (currentStatus === 'all' && currentPeriod === 'all') {
+      query = sql`SELECT * FROM invoices;`;
+    } else {
+      if (currentStatus !== 'all') {
+        query = sql`SELECT * FROM invoices WHERE status = ${currentStatus};`
+      } else {
+        switch (currentPeriod) {
+          case 'last-week':
+            query = sql`SELECT * FROM invoices
+    WHERE created_at >= NOW() - INTERVAL '7 days'
+    ORDER BY created_at DESC
+    LIMIT 2;`;
+            break;
+          case 'last-month':
+            query = sql`SELECT * FROM invoices
+    WHERE created_at >= DATE_TRUNC('month', NOW()) - INTERVAL '1 month'
+      AND created_at < DATE_TRUNC('month', NOW())
+    ORDER BY created_at DESC;`;
+            break;
+          case 'first-trimester':
+             query = sql`SELECT * FROM invoices
+    WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM NOW())
+      AND EXTRACT(MONTH FROM created_at) IN (1, 2, 3)
+    ORDER BY created_at DESC;`;
+            break;
+          case 'second-trimester':
+             query = sql`SELECT * FROM invoices
+    WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM NOW())
+      AND EXTRACT(MONTH FROM created_at) IN (4, 5, 6)
+    ORDER BY created_at DESC;`;
+            break;
+          case 'third-trimester':
+             query = sql`SELECT * FROM invoices
+    WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM NOW())
+      AND EXTRACT(MONTH FROM created_at) IN (7, 8, 9)
+    ORDER BY created_at DESC;`;
+            break;
+          case 'four-trimester':
+             query = sql`SELECT * FROM invoices
+    WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM NOW())
+      AND EXTRACT(MONTH FROM created_at) IN (10, 11, 12)
+    ORDER BY created_at DESC;`;
+            break;
+          case 'current-year':
+             query = sql`SELECT * FROM invoices
+    WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM NOW())
+    ORDER BY created_at DESC;`;
+            break;
+          case 'all':
+             query = sql`SELECT * FROM invoices;`;
+            break;
+          default:
+             query = sql`SELECT * FROM invoices;`;
+            break;
+        }
+      }
     }
-    const query = currentStatus
-      ? sql`SELECT * FROM invoices WHERE status = ${currentStatus};`
-      : sql`SELECT * FROM invoices;`; // Fetch all if no status is provided
+
 
     const result2 = await query;
     rows = result2.rows.map((row) => ({
