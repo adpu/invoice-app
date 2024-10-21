@@ -32,7 +32,7 @@ export default function FormEditInvoice({ invoice }: FormEditInvoiceProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3000/api/invoice/edit", {
+    const res = await fetch("/api/invoice/edit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
