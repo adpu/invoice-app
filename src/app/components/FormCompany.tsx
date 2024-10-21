@@ -32,7 +32,7 @@ export default function FormCompany({ companySet }: FormCompanyProps) {
         const data = new FormData()
         data.set('file', logo)
 
-        const res = await fetch('http://localhost:3000/api/upload', {
+        const res = await fetch('/api/upload', {
           method: 'POST',
           body: data
         })
@@ -62,7 +62,7 @@ export default function FormCompany({ companySet }: FormCompanyProps) {
     }
     console.log(logoName);
 
-    const res = await fetch("http://localhost:3000/api/company", {
+    const res = await fetch("/api/company", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -26,7 +26,7 @@ const InvoiceBody = ({ companySet, invoice }: InvoiceBodyProps) => (
           <View>
             {companySet ? (
               <View style={[styles.row, { padding: 0 }, { justifyContent: 'flex-start' }]}>
-                <Image style={styles.logo} src="http://localhost:3000/uploads/acme-logo.png" />
+                <Image style={styles.logo} src="/uploads/acme-logo.png" />
                 <Text style={styles.smallText}>
                   {companySet.company}{'\n'}
                   {companySet.name} {companySet.lastname}
