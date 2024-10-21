@@ -9,7 +9,7 @@ export default function FilterByCustomDates() {
     return (
         <form method="GET" className="relative w-full flex flex-col justify-start mb-2 items-start">
 
-            <label htmlFor="datei" className="block mb-1">Data d'inici:</label>
+            <label htmlFor="datei" className="block mb-1">Data d&apos;inici:</label>
             <div className='flex w-full placeholder:text-gray-400 justify-start items-center gap-2 mb-2'>
                 <input
                     type="date"
