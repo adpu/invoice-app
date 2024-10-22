@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gestor de Factures
 
-## Getting Started
+Aquesta és una aplicació creada amb **Next.js** per gestionar les teves factures. L'aplicació permet afegir, editar, visualitzar i descarregar factures en format PDF. A més, ofereix un sistema de filtres per data, període o estat de la factura.
 
-First, run the development server:
+## Funcionalitats
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Afegir factures**: Crea noves factures amb els camps necessaris.
+- **Editar factures**: Modifica les dades de factures existents.
+- **Visualitzar factures**: Mostra les factures en una llista detallada.
+- **Descarregar factures en PDF**: Guarda còpies de les factures en format PDF.
+- **Filtres avançats**: Filtra les factures per data, període o estat (pagada, pendent, cancel·lada, etc.).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instal·lació
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clona aquest repositori al teu equip:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/adpu/invoice-app
+   ```
 
-## Learn More
+2. Entra al directori on l'has descarregat i instal.la les dependències:
+   
+    ```bash 
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Crea o edita el teu arxiu .env.local amb les teves variables d'entorn:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    POSTGRES_URL="..."
+    POSTGRES_PRISMA_URL="..."
+    POSTGRES_URL_NO_SSL="..."
+    POSTGRES_URL_NON_POOLING="..."
+    POSTGRES_USER="..."
+    POSTGRES_HOST="..."
+    POSTGRES_PASSWORD="..."
+    POSTGRES_DATABASE="verceldb"
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Puja la base de dades:
 
-## Deploy on Vercel
+Taula invoices:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    id integer
+    name character varying
+    lastname character varying
+    address	character varying
+    city character varying
+    dni	character varying
+    description	text
+    payment	text
+    created_at timestamp
+    amount integer
+    iva	integer
+    irpf integer
+    invoiceid character varying 
+    status character varying
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Taula invoicesetting
+
+    id integer
+    logo character varying
+    company	character varying
+    name character varying
+    lastname character varying
+    address	character varying
+    city character varying
+    created_at timestamp
+    dni	character varying
+
+
+
+5. Executa el projecte en mode desenvolupament:
+ 
+    ```bash 
+    npm run dev
+    ```
+
+6. Visualitza el projecta:
+
+http://localhost:3000.
+
+
+
+## Tecnologies Utilitzades
+Next.js: Framework React per crear aplicacions web.
+TypeScript: Tipatge estàtic per millorar la qualitat del codi.
+Supabase: Utilitzat per gestionar la base de dades de factures.
+PDFKit: Generació de factures en format PDF.
+CSS Modules: Per al disseny i estilització de components.
+Contribució
+
+
+## Llicència
+Aquest projecte està llicenciat sota la MIT License.
+
+Desenvolupat amb ❤️ per adpu
+
+
+
