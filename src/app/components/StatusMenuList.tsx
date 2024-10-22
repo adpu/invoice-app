@@ -6,7 +6,7 @@ interface StatusMenuListProps {
 
 export default function StatusMenuList({ status }:StatusMenuListProps) {
 return(
-    <ul className="list-none block sm:flex justify-end items-center gap-4">
+    <ul className="list-none sm:flex-row flex-col flex justify-start sm:justify-end items-start sm:items-center gap-4">
           <li><Link href="/?status=all" className={`${status === 'all' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Totes</Link></li>
           <li><Link href="/?status=draft" className={`${status === 'draft' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Borrador</Link></li>
           <li><Link href="/?status=pendant" className={`${status === 'pendant' ? 'font-bold' : ''} hover:underline hover:underline-offset-4`}>Pendents</Link></li>

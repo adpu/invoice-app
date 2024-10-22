@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <h1 className="font-medium block w-full text-2xl sm:text-4xl text-black">Factures</h1>
         <div className='flex flex-col gap-2 items-end justify-start'>
           <FilterByDate period={period} svgColor={svgColor} />
-          <div className='sm:hidden block'><StatusMobileMenuList status={status} /></div>
+          <div className='sm:hidden block w-full'><StatusMobileMenuList status={status} /></div>
           <div className='sm:block hidden'><StatusMenuList status={status} /></div>
         </div>
       </div>
