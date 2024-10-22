@@ -29,7 +29,7 @@ export default function StatusMobileMenuList({ status }: StatusMobileMenuListPro
       </button>
       {filterMobile && (
         <div className='relative w-full block'>
-          <div className='absolute w-full bg-white border z-50 top-0 p-4 left-0'>
+          <div className='absolute w-full bg-white border z-20 top-0 p-4 left-0'>
             <StatusMenuList status={status} />
           </div>
         </div>
