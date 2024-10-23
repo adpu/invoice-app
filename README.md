@@ -85,11 +85,13 @@ http://localhost:3000.
 
 ## Tecnologies Utilitzades
 Next.js: Framework React per crear aplicacions web.
+
 TypeScript: Tipatge estàtic per millorar la qualitat del codi.
-Supabase: Utilitzat per gestionar la base de dades de factures.
-PDFKit: Generació de factures en format PDF.
-CSS Modules: Per al disseny i estilització de components.
-Contribució
+
+Vercel: Utilitzat per gestionar la base de dades de factures.
+
+TailwindCss: Per al disseny i estilització de components.
+
 
 
 ## Llicència
