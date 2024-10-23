@@ -185,11 +185,11 @@ const styles = StyleSheet.create({
 
 
 
-export default async function InvoicePDF() {
+export default async function InvoicePDF({ params }: { params: { id: string } }) {
   const id = 1;
   const companySet = await fetchCompanyData(id);
 
-  const idInvoice = 8;
+  const idInvoice = parseInt(params.id, 10);
   const invoice = await fetchSingleInvoice(idInvoice);
   console.log(invoice)
 
