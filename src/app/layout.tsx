@@ -37,7 +37,7 @@ export default async function RootLayout({
             <div className=" block sm:flex justify-between items-start gap-3 relative w-full">
           
             {companyData ? (
-                <div className="flex justify-start items-start gap-4">
+                <div className="flex flex-col justify-start items-start gap-2">
                    <Image src={`/uploads/${companyData.logo}`} width="32" height="32" alt="Logo" />
                    <p className="text-black text-sm"><strong>{companyData.company}</strong><br />{companyData.name} {companyData.lastname}<br />{companyData.address}, {companyData.city}<br />{companyData.dni}</p>
                  </div>
